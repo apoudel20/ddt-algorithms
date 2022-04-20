@@ -7,12 +7,15 @@ np.random.seed(201)
 class SourceSimulator():
     def __init__(self,n_groups = 3, m_sources = 4, group_count_requirements = None, tuple_count_per_source = None, access_costs = None, simulate_sources = False):
 
-        N_GROUPS = n_groups # two categories in each group
-        M_SOURCES = m_sources
-        self.source_group_dist = np.random.rand(m_sources * n_groups).reshape(m_sources, n_groups) # distribution probabilities for group satisfaction by source
-        self.tuple_count_per_source = np.random.randint(20,100, m_sources) if tuple_count_per_source is None else tuple_count_per_source
+
+        self.n_groups = n_groups # two categories in each group
+        self.m_sources = m_sources
         self.group_count_requirements = np.random.randint(10,20, n_groups) if group_count_requirements is None else group_count_requirements
         self.access_costs = np.random.randint(10,50, m_sources) if access_costs is None else access_costs
+        
+        # Generating source group distributions for the simulator as well as the tuple count per source.
+        self.source_group_dist = np.random.rand(m_sources * n_groups).reshape(m_sources, n_groups) # distribution probabilities for group satisfaction by source
+        self.tuple_count_per_source = np.random.randint(20,100, m_sources) if tuple_count_per_source is None else tuple_count_per_source
 
         print("Source group satisfaction probability distribution\n", self.source_group_dist)
         print("Source access costs", self.access_costs)
