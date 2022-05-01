@@ -1,4 +1,16 @@
+import numpy as np
+
 from ddt_simulator import SourceSimulator
+
+# def greedy(sources: SourceSimulator):
+
+#     itercount = 0
+
+#     while(np.sum(sources.group_count_requirements) != 0):
+#         itercount += 1
+#         print("Iteration", itercount,":")
+#         selec
+
 
 # without using the tiling paper
 
@@ -89,19 +101,4 @@ def MinIndex(arr):
 
 
 source_simulator = SourceSimulator(simulate_sources = True)
-source_simulator.plot_simulation()
-
-D = source_simulator.sources
-C = source_simulator.access_costs # costs
-Q = source_simulator.group_count_requirements # count requirements
-G = list(range(source_simulator.n_groups)) # groups
-
-print("\nCount Requirements: " + str(Q))
-
-result = greedy(D,C,Q,G)
-
-print("Indices of Selected Sources:")
-print(result[0])
-
-print("Distributions of Selected Sources:")
-print(result[1])
+# source_simulator.plot_simulation()
