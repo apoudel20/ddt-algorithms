@@ -59,7 +59,7 @@ class SourceSimulator():
                 #  / (max(self.access_costs) - min(self.access_costs)
                 )
                 ))
-        bars[1:] = bars[1:] / np.min(bars[1:])
+        bars[1:] = bars[1:] / max(np.min(bars[1:]),1)
         self.bars = bars
         print("Counts per sources: \n",self.bars)
 
@@ -74,7 +74,7 @@ class SourceSimulator():
         self.plot = True # enabled when called directly
         if(self.simulate_sources and self.plot):
 
-            bar_labels = ['Required Counts','Source 0','Source 1', 'Source 2', 'Source 3']
+            bar_labels = ['Required Counts'] + ['Source'+str(x) for x in range(self.m_sources)]
 
             X_axis = np.arange(len(bar_labels))
                 
@@ -93,9 +93,9 @@ class SourceSimulator():
 
 # USAGE
 
-# ddt_sim = SourceSimulator(3,4, [15] * 3, simulate_sources = True, plot = True)
-# if(ddt_sim.simulate_sources):
-#     ddt_sim.plot_simulation()
+ddt_sim = SourceSimulator(3,40, [15] * 3, simulate_sources = True, plot = True)
+if(ddt_sim.simulate_sources):
+    ddt_sim.plot_simulation()
 
 
 
