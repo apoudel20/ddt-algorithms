@@ -37,14 +37,13 @@ def get_best_fit(requirement: np.array, sources: np.array):
 # print(type(np.array([])))
 # print(sources.bars[1])
 
-# sources.plot_simulation()
 
 unit_selected_sources = get_best_fit(sources.group_count_requirements, sources.bars[1:])
 
 source_id = list()
 for x in unit_selected_sources:
     for i,y in enumerate(sources.bars[1:]):
-        print(x,y)
+        # print(x,y)
         if((x==y).all()):
             source_id.append(i)
 print(source_id, ":", unit_selected_sources)
@@ -63,10 +62,16 @@ def linear_combination(sources: np.array, requirements: np.array, access_costs):
 
     # Define and solve the CVXPY problem.
     x = cp.Variable(sources.shape[0])
-    cost = cp.sum_squares(sources.T @ (x @ access_costs) - target)
-    prob = cp.Problem(cp.Minimize(cost), [x>=0, cp.sum(x)==1])
+    cost = cp.sum_squares(sources.T @ x - target)
+    prob = cp.Problem(cp.Minimize(cost), [x>=0])
     prob.solve()
 
     return x.value
 
-print(linear_combination(sources.source_group_dist, sources.group_count_requirements, sources.access_costs))
+results = linear_combination(sources.source_group_dist, sources.group_count_requirements, sources.access_costs)
+
+print(np.sum(unit_selected_sources,axis=0))
+print("k per source:", results)
+print("Cost:", sum(results))
+
+sources.plot_simulation()

@@ -5,12 +5,12 @@ import matplotlib.pyplot as plt
 
 np.random.seed(2000)
 class SourceSimulator():
-    def __init__(self,n_groups = 3, m_sources = 4, source_group_distribution, group_count_requirements = None, tuple_count_per_source = None, access_costs = None, simulate_sources = False, plot = False):
+    def __init__(self,n_groups = 3, m_sources = 4, source_group_distribution = None, group_count_requirements = None, tuple_count_per_source = None, access_costs = None, simulate_sources = False, plot = False):
 
 
         self.n_groups = n_groups # two categories in each group
         self.m_sources = m_sources
-        self.group_count_requirements = np.random.randint(40,70, n_groups) if group_count_requirements is None else group_count_requirements
+        self.group_count_requirements = np.random.randint(10,20, n_groups) if group_count_requirements is None else group_count_requirements
         self.access_costs = np.random.randint(10,50, m_sources) if access_costs is None else np.array(access_costs)
         
         # Generating source group distributions for the simulator as well as the tuple count per source.
@@ -56,7 +56,7 @@ class SourceSimulator():
             bars = np.vstack((
                 bars,
                 (np.count_nonzero(source, axis = 0)
-                #  / (max(self.access_costs) - min(self.access_costs)
+                #  / (max(self.access_costs) - min(self.access_costs))
                 )
                 ))
         bars[1:] = bars[1:] / max(np.min(bars[1:]),1)
@@ -93,9 +93,9 @@ class SourceSimulator():
 
 # USAGE
 
-# ddt_sim = SourceSimulator(3,10, [15] * 3, simulate_sources = True, plot = True)
-# if(ddt_sim.simulate_sources):
-#     ddt_sim.plot_simulation()
+ddt_sim = SourceSimulator(3,10, group_count_requirements=[15] * 3, simulate_sources = True, plot = True)
+if(ddt_sim.simulate_sources):
+    ddt_sim.plot_simulation()
 
 
 
