@@ -5,16 +5,16 @@ import matplotlib.pyplot as plt
 
 np.random.seed(2000)
 class SourceSimulator():
-    def __init__(self,n_groups = 3, m_sources = 4, group_count_requirements = None, tuple_count_per_source = None, access_costs = None, simulate_sources = False, plot = False):
+    def __init__(self,n_groups = 3, m_sources = 4, source_group_distribution, group_count_requirements = None, tuple_count_per_source = None, access_costs = None, simulate_sources = False, plot = False):
 
 
         self.n_groups = n_groups # two categories in each group
         self.m_sources = m_sources
-        self.group_count_requirements = np.random.randint(10,20, n_groups) if group_count_requirements is None else group_count_requirements
+        self.group_count_requirements = np.random.randint(40,70, n_groups) if group_count_requirements is None else group_count_requirements
         self.access_costs = np.random.randint(10,50, m_sources) if access_costs is None else np.array(access_costs)
         
         # Generating source group distributions for the simulator as well as the tuple count per source.
-        self.source_group_dist = np.random.rand(m_sources * n_groups).reshape(m_sources, n_groups) # distribution probabilities for group satisfaction by source
+        self.source_group_dist = np.random.rand(m_sources * n_groups).reshape(m_sources, n_groups) if source_group_distribution is None else np.array(source_group_distribution) # distribution probabilities for group satisfaction by source
         self.tuple_count_per_source = np.random.randint(20,100, m_sources) if tuple_count_per_source is None else tuple_count_per_source
 
         print("Source group satisfaction probability distribution\n", self.source_group_dist)
@@ -40,12 +40,12 @@ class SourceSimulator():
         print("*** SIMULATION RESULTS ***")
         
         if(self.simulate_sources):
-            self.sources = [
+            self.sources = np.array([
                 [
                         [np.random.choice((0,1), p = (1-x,x)) for x in y
                         ] for k in range(self.tuple_count_per_source[i])
                     ] for i,y in enumerate(self.source_group_dist)
-                ]
+                ])
 
         # SIMULATED SOURCES
 
@@ -93,9 +93,9 @@ class SourceSimulator():
 
 # USAGE
 
-ddt_sim = SourceSimulator(3,40, [15] * 3, simulate_sources = True, plot = True)
-if(ddt_sim.simulate_sources):
-    ddt_sim.plot_simulation()
+# ddt_sim = SourceSimulator(3,10, [15] * 3, simulate_sources = True, plot = True)
+# if(ddt_sim.simulate_sources):
+#     ddt_sim.plot_simulation()
 
 
 
