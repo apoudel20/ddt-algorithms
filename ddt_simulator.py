@@ -74,7 +74,7 @@ class SourceSimulator():
         self.plot = True # enabled when called directly
         if(self.simulate_sources and self.plot):
 
-            bar_labels = ['Required Counts'] + ['Source'+str(x) for x in range(self.m_sources)]
+            bar_labels = ['Required Counts'] + ['S'+str(x) for x in range(self.m_sources)]
 
             X_axis = np.arange(len(bar_labels))
                 
@@ -93,9 +93,9 @@ class SourceSimulator():
 
 # USAGE
 
-ddt_sim = SourceSimulator(3,10, group_count_requirements=[15] * 3, simulate_sources = True, plot = True)
-if(ddt_sim.simulate_sources):
-    ddt_sim.plot_simulation()
+ddt_sim = SourceSimulator(3,20, group_count_requirements=[15] * 3, simulate_sources = True, plot = True)
+# if(ddt_sim.simulate_sources):
+#     ddt_sim.plot_simulation()
 
 
 

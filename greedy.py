@@ -1,3 +1,6 @@
+import random
+from ddt_simulator import SourceSimulator
+
 def randomBase(d,c,count):
         leng = len(d)
         cost = 0

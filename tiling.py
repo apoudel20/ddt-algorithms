@@ -62,7 +62,7 @@ def linear_combination(sources: np.array, requirements: np.array, access_costs):
 
     # Define and solve the CVXPY problem.
     x = cp.Variable(sources.shape[0])
-    cost = cp.sum_squares(sources.T @ x - target)
+    cost = cp.sum_squares(sources.T @ x - target) # integrate cost. right now, this function only does equicost. mean squared error. multiply tuple (x) by cost
     prob = cp.Problem(cp.Minimize(cost), [x>=0])
     prob.solve()
 
