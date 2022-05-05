@@ -1,5 +1,5 @@
 import numpy as np
-import cvxpy as cp
+import cvxpy as cp # optimization problem solver package
 
 from ddt_simulator import SourceSimulator
 
@@ -61,12 +61,14 @@ def linear_combination(sources: np.array, requirements: np.array, access_costs):
     target = requirements
 
     # Define and solve the CVXPY problem.
-    x = cp.Variable(sources.shape[0])
+    x = cp.Variable(sources.shape[0]) # x is k
     cost = cp.sum_squares(sources.T @ x - target) # integrate cost. right now, this function only does equicost. mean squared error. multiply tuple (x) by cost
-    prob = cp.Problem(cp.Minimize(cost), [x>=0])
+    prob = cp.Problem(cp.Minimize(cost +sum(x)), [x>=0])
     prob.solve()
 
     return x.value
+
+# will probably need to keep track of is size of sources. her algorithm has the N_i in the denominator
 
 results = linear_combination(sources.source_group_dist, sources.group_count_requirements, sources.access_costs)
 
