@@ -74,7 +74,7 @@ class SourceSimulator():
         self.plot = True # enabled when called directly
         if(self.simulate_sources and self.plot):
 
-            bar_labels = ['Required Counts'] + ['S'+str(x) for x in range(self.m_sources)]
+            bar_labels = ['Required Counts'] + ['S_'+str(x) for x in range(self.m_sources)]
 
             X_axis = np.arange(len(bar_labels))
                 
@@ -84,16 +84,22 @@ class SourceSimulator():
                 
             plt.xticks(X_axis, bar_labels)
             plt.xlabel("Sources")
-            plt.ylabel("Counts fulfilling groups")
+            plt.ylabel("Counts fulfilling groups normalized")
             plt.title("Distribution of required groups across sources")
             plt.legend()
+            plt.savefig("tiles.png")
             plt.show()
         else:
             print("Sources not plotted.")
 
 # USAGE
 
-ddt_sim = SourceSimulator(3,20, group_count_requirements=[15] * 3, simulate_sources = True, plot = True)
+ddt_sim = SourceSimulator(3,5, group_count_requirements=[50] * 3, simulate_sources = True, plot = True)
+# mask =  np.array([.1,.1,1])
+# ddt_sim.source_group_dist = np.multiply(ddt_sim.source_group_dist, mask) 
+# print(ddt_sim.source_group_dist)
+# ddt_sim.source_simulation()
+# ddt_sim.plot_simulation()
 # if(ddt_sim.simulate_sources):
 #     ddt_sim.plot_simulation()
 
